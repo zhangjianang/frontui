@@ -3,6 +3,7 @@ package com.ang.frontui.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.ang.frontui.bean.UserInfo;
 import com.ang.frontui.mapper.UserMapper;
+import com.ang.frontui.service.DailyService;
 import com.ang.frontui.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,9 @@ public class HelloController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    DailyService dailyService;
 
     @RequestMapping(value = "/list")
     public List<String> list() {
@@ -35,6 +39,12 @@ public class HelloController {
     @RequestMapping("/id/{id}")
     public String findone(@PathVariable Long id){
         return JSONObject.toJSONString(userService.selectUserById(id));
+    }
+
+
+    @RequestMapping("/daily")
+    public String findAll(){
+        return JSONObject.toJSONString(dailyService.findAll());
     }
 
 }
