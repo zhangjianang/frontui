@@ -47,4 +47,9 @@ public class HelloController {
         return JSONObject.toJSONString(dailyService.findAll());
     }
 
+    @RequestMapping("/add")
+    public String add(){
+        return null;
+    }
+
 }
