@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/daily")
 public class DailyController {
 
-    private static final String DAILY_KEY="daily";
+    public static final String DAILY_KEY="daily";
 
     @Autowired
     DailyService dailyService;
