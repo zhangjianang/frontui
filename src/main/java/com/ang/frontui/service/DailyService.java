@@ -15,4 +15,12 @@ public class DailyService {
     public List<DailyTask> findAll(){
         return dailyTaskMapper.findAll();
     }
+
+    public Integer addOne(DailyTask daily){
+        return dailyTaskMapper.addOne(daily);
+    }
+
+    public Integer updateById(DailyTask dailyTask){
+        return dailyTaskMapper.updateById(dailyTask);
+    }
 }

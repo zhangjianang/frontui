@@ -8,4 +8,12 @@
         select * from daily_task
     </select>
 
+    <insert id="addOne" parameterType="com.ang.frontui.bean.DailyTask"  keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+        insert into daily_task (task_name ,category,elapse,actual,date,reason) values
+        (#{taskName},#{category},#{elapse},#{actual},#{date},#{reason})
+    </insert>
+
+    <update id="updateById" parameterType="com.ang.frontui.bean.DailyTask">
+        update daily_task set task_name=#{taskName},category=#{category},elapse=#{elapse},actual=#{actual}, date=#{date} ,reason=#{reason} where id=#{id}
+    </update>
 </mapper>

@@ -8,4 +8,8 @@ import java.util.List;
 @Mapper
 public interface DailyTaskMapper {
     List<DailyTask> findAll();
+
+    Integer addOne(DailyTask daily);
+
+    Integer updateById(DailyTask dailyTask);
 }
