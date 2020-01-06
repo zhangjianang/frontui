@@ -10,7 +10,7 @@ $(document).ready(function () {
     };
 
     var source = {
-        url:'/data/daily',
+        url:'/daily/all',
         datafields: [
             { name: 'id' },
             { name: 'taskName' },
@@ -23,12 +23,12 @@ $(document).ready(function () {
         datatype: "json",
         addrow:function(rowid, rowdata, position, commit){
             // alert(rowid+"--"+JSON.stringify(rowdata));
-            $.post("/data/add", {"info":JSON.stringify(rowdata)});
+            $.post("/daily/add", {"info":JSON.stringify(rowdata)});
             commit(true);
         },
         updaterow: function (rowid, rowdata, commit) {
             // alert(rowid+"--"+JSON.stringify(rowdata));
-            $.post("/data/update", {"info":JSON.stringify(rowdata)});
+            $.post("/daily/update", {"info":JSON.stringify(rowdata)});
             commit(true);
         }
     };

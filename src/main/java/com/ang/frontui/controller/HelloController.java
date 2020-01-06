@@ -19,8 +19,6 @@ public class HelloController {
     @Autowired
     UserService userService;
 
-    @Autowired
-    DailyService dailyService;
 
     @RequestMapping(value = "/list")
     public List<String> list() {
@@ -40,28 +38,5 @@ public class HelloController {
         return JSONObject.toJSONString(userService.selectUserById(id));
     }
 
-
-    @RequestMapping("/daily")
-    public String findAll(){
-        return JSONObject.toJSONString(dailyService.findAll());
-    }
-
-    @RequestMapping(value="/add",method= RequestMethod.POST)
-    public String add(@RequestParam (value="info") String info){
-        System.out.println(info);
-        DailyTask dailyTask = JSONObject.parseObject(info, DailyTask.class);
-        if(dailyTask.getTaskName()==null||"".equals(dailyTask.getTaskName())){
-            return "param not set";
-        }
-        dailyService.addOne(dailyTask);
-        return "ok";
-    }
-
-    @RequestMapping(value="/update",method= RequestMethod.POST)
-    public String update(@RequestParam (value="info") String info){
-        DailyTask dailyTask = JSONObject.parseObject(info, DailyTask.class);
-        dailyService.updateById(dailyTask);
-        return "ok";
-    }
 
 }
