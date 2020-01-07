@@ -6,11 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@SuppressWarnings("All")
 public class UserService {
     @Autowired
     UserMapper userDao;
 
     public UserInfo selectUserById(Long id) {
         return userDao.findOne(id);
+    }
+
+    public Integer save(UserInfo userInfo){
+        return userDao.save(userInfo);
     }
 }

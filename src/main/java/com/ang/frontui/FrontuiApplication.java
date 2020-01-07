@@ -7,6 +7,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 @SpringBootApplication
 @MapperScan("com.ang.frontui.mapper")
+@EnableAspectJAutoProxy(exposeProxy = true)
 public class FrontuiApplication {
 
 	public static void main(String[] args) {

@@ -16,4 +16,11 @@
     <update id="updateById" parameterType="com.ang.frontui.bean.DailyTask">
         update daily_task set task_name=#{taskName},category=#{category},elapse=#{elapse},actual=#{actual}, date=#{date} ,reason=#{reason} where id=#{id}
     </update>
+
+<!--    <select id="selectIds"-->
+<!--            resultType="com.ang.frontui.bean.DailyTask"-->
+<!--            lang="org.mybatis.scripting.freemarker.FreeMarkerLanguageDriver">-->
+<!--        select  * from daily_task-->
+<!--       where  id in(${ids?join(',')})-->
+<!--    </select>-->
 </mapper>
