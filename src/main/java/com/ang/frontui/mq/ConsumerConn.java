@@ -1,13 +1,17 @@
-package com.ang.frontui.uitl;
+package com.ang.frontui.mq;
 
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
+import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
+import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
 
 import java.util.List;
+
+import static com.ang.frontui.mq.MyProducer.asyncTopic;
 
 public class ConsumerConn {
 
@@ -19,8 +23,14 @@ public class ConsumerConn {
         // Specify name server addresses.
         consumer.setNamesrvAddr("www.zja.com:9876");
 
+
+        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
+
+        //set to broadcast mode
+        consumer.setMessageModel(MessageModel.BROADCASTING);
+
         // Subscribe one more more topics to consume.
-        consumer.subscribe("angTopic", "*");
+        consumer.subscribe(asyncTopic, "*");
         // Register callback to execute on arrival of messages fetched from brokers.
         consumer.registerMessageListener(new MessageListenerConcurrently() {
 
