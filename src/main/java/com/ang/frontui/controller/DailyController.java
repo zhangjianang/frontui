@@ -5,10 +5,7 @@ import com.ang.frontui.bean.DailyTask;
 import com.ang.frontui.service.DailyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/daily")
@@ -27,7 +24,7 @@ public class DailyController {
     public String findAll(){
 
         Object daily = redisTemplate.opsForValue().get(DAILY_KEY);
-        if(daily != null){
+         if(daily != null){
             System.out.println("daily 缓存获取！");
             return daily.toString();
         }else{
@@ -52,6 +49,13 @@ public class DailyController {
     public String update(@RequestParam (value="info") String info){
         DailyTask dailyTask = JSONObject.parseObject(info, DailyTask.class);
         dailyService.updateById(dailyTask);
+        return "ok";
+    }
+
+    @RequestMapping(value="/updatebean",method= RequestMethod.POST)
+    public String updatebean(@RequestBody DailyTask bean){
+        System.out.println(bean);
+//        dailyService.updateById(dailyTask);
         return "ok";
     }
 }
