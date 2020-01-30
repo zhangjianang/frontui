@@ -7,6 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/daily")
 public class DailyController {
@@ -53,9 +58,22 @@ public class DailyController {
     }
 
     @RequestMapping(value="/updatebean",method= RequestMethod.POST)
-    public String updatebean(@RequestBody DailyTask bean){
-        System.out.println(bean);
-//        dailyService.updateById(dailyTask);
-        return "ok";
+    public String updatebean(@RequestParam Map<String, Object> params){
+        System.out.println(params);
+        Object id = params.get("id");
+        int uid = Integer.parseInt(id.toString());
+        DailyTask dailyTask = dailyService.findById(uid);
+        dailyTask.setTaskName(params.get("taskName").toString());
+        dailyTask.setCategory(params.get("category").toString());
+        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date  date = format.parse(params.get("date").toString());
+            long dt = date.getTime();
+            dailyTask.setDate(dt);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Integer res = dailyService.updateById(dailyTask);
+        return res+"";
     }
 }

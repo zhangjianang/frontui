@@ -11,7 +11,8 @@ $(document).ready(function () {
         var hour = date.getHours() + ':';
         var min = date.getMinutes() + ':';
         var second = date.getSeconds();
-        return year + month + dates + hour + min + second ;
+        // return year + month + dates + hour + min + second ;
+        return year + month + dates ;
     };
     $("#jqGrid").jqGrid({
         editurl: '/daily/updatebean',
@@ -32,40 +33,36 @@ $(document).ready(function () {
                         $(element).datepicker({
                             id: 'date',
                             dateFormat: 'yy-mm-dd',
+                            altField : '[name=publish_time]',
+                            altFormat : '@'
                             //minDate: new Date(2010, 0, 1),
-                            maxDate: new Date(),
-                            showOn: 'focus'
                         });
                     }
-                }
+                },
+                unformat:unDateFomatter
             },
             { label: 'Reason', name: 'reason', width: 80 }
         ],
         viewrecords: true, // show the current page, data rang and total records on the toolbar
         width: 780,
         height: 200,
-        pager: "#jqGridPager",
-        // gridComplete : function() {
-        //     var ids = jQuery("#jqGrid").jqGrid('getDataIDs');
-        //     for ( var i = 0; i < ids.length; i++) {
-        //         var cl = ids[i];
-        //         be = "<a style='height:22px;width:40px;'  onclick=\"myOperate('"+ cl + "');\" >编辑</a>";
-        //         se = "<input style='height:22px;width:20px;' type='button' value='S' onclick=\"$('#jqGrid').saveRow('"
-        //             + cl + "');\" />";
-        //         ce = "<input style='height:22px;width:20px;' type='button' value='C' onclick=\"$('#jqGrid').restoreRow('"
-        //             + cl + "');\" />";
-        //         jQuery("#jqGrid").jqGrid('setRowData', ids[i],
-        //             {
-        //                 myact : be + se + ce
-        //             });
-        //     }
-        // }
+        pager: "#jqGridPager"
+    });
+    $('#jqGrid').navGrid("#jqGridPager", {
+        search: true, // show search button on the toolbar
+        add: false,
+        edit: false,
+        del: false,
+        refresh: true
     });
 
     function opFomatter(cellvalue, options, rowObject){
         return "<a href='#' onclick='myOperate("+ rowObject.id+ ")'>操作</a>"
     };
-
+    function unDateFomatter(cellvalue, options) {
+        // alert(cellvalue);
+        // return (new Date(cellvalue)).getTime();
+    }
 
     (function fetchGridData() {
         var gridArrayData = [];

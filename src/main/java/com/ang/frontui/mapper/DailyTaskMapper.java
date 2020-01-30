@@ -14,5 +14,6 @@ public interface DailyTaskMapper {
 
     Integer updateById(DailyTask dailyTask);
 
+    DailyTask findById(Integer id);
 //    List<DailyTask> selectIds(@Param("ids") List<Integer> ids);
 }

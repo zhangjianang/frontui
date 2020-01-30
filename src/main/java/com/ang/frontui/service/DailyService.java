@@ -23,4 +23,8 @@ public class DailyService {
     public Integer updateById(DailyTask dailyTask){
         return dailyTaskMapper.updateById(dailyTask);
     }
+
+    public DailyTask findById(Integer id){
+        return dailyTaskMapper.findById(id);
+    }
 }

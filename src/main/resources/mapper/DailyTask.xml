@@ -7,6 +7,9 @@
     <select id="findAll"  resultType="com.ang.frontui.bean.DailyTask">
         select * from daily_task
     </select>
+    <select id="findById"  resultType="com.ang.frontui.bean.DailyTask" parameterType="java.lang.Integer">
+        select * from daily_task where id = #{id}
+    </select>
 
     <insert id="addOne" parameterType="com.ang.frontui.bean.DailyTask"  keyProperty="id" keyColumn="id" useGeneratedKeys="true">
         insert into daily_task (task_name ,category,elapse,actual,date,reason) values
