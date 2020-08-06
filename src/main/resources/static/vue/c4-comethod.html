@@ -6,10 +6,29 @@
 		<script src="./vue.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
-		<h1>hello</h1>
 		<div id="mycp">
 			<my-button ></my-button>
+			<h2>切换来了</h2>
+			<template v-if="uname" >
+				<label>uname:</label>
+				<input type="text" key="name-input" />
+			</template>
+			<template v-else>
+				<label>email:</label>
+				<input type="text"  key="emial-input"/>
+			</template>
+			<button @click="toggle">切换</button>
+			
+			<br />
+			<select v-model="selected"  @select="showselect">
+				<option v-bind:value="aa">sth</option>
+			</select>
+			<h1>{{selected}}</h1>
+			<br />
+			<input  type="text" v-model="aa"/>
+			
 		</div>
+		
 		<!-- todo -->
 		<!-- 怎么复用 -->
 		<script type="text/javascript">
@@ -25,10 +44,21 @@
 				template:"<button v-on:click='cclick'>{{info}}</button>"
 			});
 			
-			
 			var mybtn = new Vue({
 				el:'#mycp',
-				
+				data:{
+					uname:false,
+					selected:'',
+					aa:"新值"
+				},
+				methods:{
+					toggle:function(){
+						this.uname= this.uname?false:true
+					},
+					showselect(){
+						
+					}
+				}
 			})
 		</script>
 	</body>

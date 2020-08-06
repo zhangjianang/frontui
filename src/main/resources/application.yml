@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     #   数据源基本配置
-    username: ang
+    username: ang01
     password: *
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://www.zja.com:3306/ang_bi
