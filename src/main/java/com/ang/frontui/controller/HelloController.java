@@ -2,6 +2,7 @@ package com.ang.frontui.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ang.frontui.bean.UserInfo;
+import com.ang.frontui.common.AngRedisNotify;
 import com.ang.frontui.mapper.UserMapper;
 import com.ang.frontui.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -19,9 +21,10 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/data")
 public class HelloController {
 
+    private static final int EXP_SECOND = 60*60;
+
     @Autowired
     UserService userService;
-
 
     @Autowired
     RedisTemplate<String,  String> redisTemplate;
@@ -40,7 +43,7 @@ public class HelloController {
             userList.add("we are the champion</br>");
             userList.add("no time for loser</br>");
             userList.add("cause we are the champion of the world</br>");
-            redisString.set("list",JSONObject.toJSONString(userList),20, TimeUnit.SECONDS);
+            redisString.set("list",JSONObject.toJSONString(userList),EXP_SECOND, TimeUnit.SECONDS);
             System.out.println("直接 ！");
         }else{
             userList = JSONObject.parseArray(list,String.class);
@@ -52,8 +55,21 @@ public class HelloController {
 
     @RequestMapping("/id/{id}")
     public String findone(@PathVariable Long id){
-        String andSet = redisTemplate.opsForValue().getAndSet("findone-id", JSONObject.toJSONString(userService.selectUserById(id)));
-        return andSet;
+        String key = "id-"+id;
+        String res = redisTemplate.opsForValue().get(key);
+        if(res == null){
+            res = JSONObject.toJSONString(userService.selectUserById(id));
+            redisTemplate.opsForValue().set(key,res,EXP_SECOND, TimeUnit.SECONDS);
+        }else{
+            System.out.println("缓存获取！");
+        }
+        return res;
+    }
+
+    @RequestMapping("/del/{id}")
+    public String deleteById(@NotNull @PathVariable Long id){
+        Integer integer = userService.deleteById(id);
+        return integer+"";
     }
 
 }
