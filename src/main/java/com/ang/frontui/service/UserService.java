@@ -7,8 +7,11 @@ import org.aspectj.lang.annotation.After;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
+
     @Autowired
     UserMapper userDao;
 
@@ -19,5 +22,13 @@ public class UserService {
     @AngRedisNotify
     public Integer deleteById(Long id){
         return userDao.deleteById(id);
+    }
+
+    public Integer addUser(UserInfo userInfo){
+        return userDao.save(userInfo);
+    }
+
+    public List<UserInfo> selectAll(){
+        return userDao.selectAll();
     }
 }

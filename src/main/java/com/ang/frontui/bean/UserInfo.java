@@ -1,9 +1,13 @@
 package com.ang.frontui.bean;
 
+import javax.validation.constraints.NotNull;
+
 public class UserInfo {
     private Long id;
+    @NotNull
     private String name;
     private String gender;
+    @NotNull
     private String address;
     private Long date;
     private Integer state;

@@ -16,11 +16,12 @@ public interface UserMapper {
     UserInfo findOne(Long id);
 
     @Select("select * from user_info")
-    List<UserInfo> list();
+    List<UserInfo> selectAll();
 
     @Insert("INSERT INTO USER_INFO(NAME, GENDER, ADDRESS) VALUES(#{name}, #{gender}, #{address})")
     int save(UserInfo dept);
 
     @Delete("delete from user_info where id = #{id}")
     int deleteById(Long id);
+
 }

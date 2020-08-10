@@ -1,6 +1,7 @@
 package com.ang.frontui.config;
 
 import com.ang.frontui.interceptors.AngInterceptor;
+import com.ang.frontui.interceptors.CorsInterceptor;
 import com.ang.frontui.interceptors.FirstInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -19,11 +20,15 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Autowired
     AngInterceptor angInterceptor;
 
+    @Autowired
+    private CorsInterceptor corsInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(firstInterceptor);
+        registry.addInterceptor(corsInterceptor);
+//        registry.addInterceptor(firstInterceptor);
 
         List<String> list = new ArrayList<>();
-        registry.addInterceptor(angInterceptor).addPathPatterns("/data/**").excludePathPatterns(list);
+        registry.addInterceptor(angInterceptor).addPathPatterns("/user/**").excludePathPatterns(list);
     }
 }

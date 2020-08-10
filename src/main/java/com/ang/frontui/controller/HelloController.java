@@ -9,16 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping("/data")
+@RequestMapping("/user")
 public class HelloController {
 
     private static final int EXP_SECOND = 60*60;
@@ -72,4 +74,16 @@ public class HelloController {
         return integer+"";
     }
 
+    @RequestMapping("/add")
+    public String addUser(@Valid @RequestBody UserInfo userInfo){
+        Integer integer = userService.addUser(userInfo);
+        return integer+"";
+    }
+
+    @RequestMapping("/all")
+    public List<UserInfo> selectAll(){
+        List<UserInfo> userInfos = userService.selectAll();
+        System.out.println(JSONObject.toJSONString(userInfos));
+        return userInfos;
+    }
 }
