@@ -18,7 +18,7 @@ public interface UserMapper {
     @Select("select * from user_info")
     List<UserInfo> selectAll();
 
-    @Insert("INSERT INTO USER_INFO(NAME, GENDER, ADDRESS) VALUES(#{name}, #{gender}, #{address})")
+    @Insert("INSERT INTO USER_INFO(NAME, GENDER, ADDRESS,DATE,STATE) VALUES(#{name}, #{gender}, #{address},#{date},#{state})")
     int save(UserInfo dept);
 
     @Delete("delete from user_info where id = #{id}")

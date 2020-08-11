@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("/user")
-public class HelloController {
+public class UserController {
 
     private static final int EXP_SECOND = 60*60;
 
@@ -76,6 +76,8 @@ public class HelloController {
 
     @RequestMapping("/add")
     public String addUser(@Valid @RequestBody UserInfo userInfo){
+        userInfo.setDate(System.currentTimeMillis());
+        userInfo.setState(1);
         Integer integer = userService.addUser(userInfo);
         return integer+"";
     }

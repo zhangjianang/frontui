@@ -9,7 +9,7 @@ public class UserInfo {
     private String gender;
     @NotNull
     private String address;
-    private Long date;
+    private Long date ;
     private Integer state;
 
     public Long getId() {
