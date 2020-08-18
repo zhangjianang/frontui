@@ -74,6 +74,13 @@ public class UserController {
         return integer+"";
     }
 
+    @RequestMapping("/del")
+    public String delById( @RequestBody UserInfo userInfo){
+        Integer integer = userService.deleteById(userInfo.getId());
+        return integer+"";
+    }
+
+
     @RequestMapping("/add")
     public String addUser(@Valid @RequestBody UserInfo userInfo){
         userInfo.setDate(System.currentTimeMillis());
