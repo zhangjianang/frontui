@@ -1,6 +1,7 @@
 package com.ang.frontui.service;
 
 import com.ang.frontui.bean.UserInfo;
+import com.ang.frontui.bean.UserMeasure;
 import com.ang.frontui.common.AngRedisNotify;
 import com.ang.frontui.mapper.UserMapper;
 import org.aspectj.lang.annotation.After;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@SuppressWarnings("all")
 public class UserService {
 
     @Autowired
@@ -30,5 +32,9 @@ public class UserService {
 
     public List<UserInfo> selectAll(){
         return userDao.selectAll();
+    }
+
+    public List<UserMeasure> selectMeasure(){
+        return userDao.selectMeasure();
     }
 }

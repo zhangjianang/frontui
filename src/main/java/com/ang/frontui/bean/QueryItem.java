@@ -31,4 +31,13 @@ public class QueryItem {
     public void setObjectId(Integer objectId) {
         this.objectId = objectId;
     }
+
+    public QueryItem(){
+
+    }
+
+    public QueryItem(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
 }

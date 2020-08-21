@@ -2,6 +2,7 @@ package com.ang.frontui.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ang.frontui.bean.UserInfo;
+import com.ang.frontui.bean.UserMeasure;
 import com.ang.frontui.common.AngRedisNotify;
 import com.ang.frontui.mapper.UserMapper;
 import com.ang.frontui.service.UserService;
@@ -20,7 +21,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("user")
 public class UserController {
 
     private static final int EXP_SECOND = 60*60;
@@ -33,7 +34,7 @@ public class UserController {
 
 
 
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "list")
     public List<String> list() {
         ValueOperations<String, String> redisString  = redisTemplate.opsForValue();
         String list = redisString.get("list");
@@ -74,14 +75,14 @@ public class UserController {
         return integer+"";
     }
 
-    @RequestMapping("/del")
+    @RequestMapping("del")
     public String delById( @RequestBody UserInfo userInfo){
         Integer integer = userService.deleteById(userInfo.getId());
         return integer+"";
     }
 
 
-    @RequestMapping("/add")
+    @RequestMapping("add")
     public String addUser(@Valid @RequestBody UserInfo userInfo){
         userInfo.setDate(System.currentTimeMillis());
         userInfo.setState(1);
@@ -89,10 +90,16 @@ public class UserController {
         return integer+"";
     }
 
-    @RequestMapping("/all")
+    @RequestMapping("all")
     public List<UserInfo> selectAll(){
         List<UserInfo> userInfos = userService.selectAll();
         System.out.println(JSONObject.toJSONString(userInfos));
         return userInfos;
+    }
+
+    @RequestMapping("measure")
+    public List<UserMeasure> selectMeasure(){
+        List<UserMeasure> userMeasures = userService.selectMeasure();
+        return userMeasures;
     }
 }
