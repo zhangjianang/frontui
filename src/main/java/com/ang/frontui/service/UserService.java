@@ -34,7 +34,11 @@ public class UserService {
         return userDao.selectAll();
     }
 
-    public List<UserMeasure> selectMeasure(){
-        return userDao.selectMeasure();
+    public List<UserMeasure> selectMeasure(Integer start,Integer end){
+        return userDao.selectMeasure(start,end);
+    }
+
+    public Integer selectMeasureTotal(){
+        return userDao.selectMeasureTotal();
     }
 }

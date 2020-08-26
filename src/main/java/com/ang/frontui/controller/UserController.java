@@ -1,6 +1,7 @@
 package com.ang.frontui.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ang.frontui.bean.PageInfo;
 import com.ang.frontui.bean.UserInfo;
 import com.ang.frontui.bean.UserMeasure;
 import com.ang.frontui.common.AngRedisNotify;
@@ -98,8 +99,15 @@ public class UserController {
     }
 
     @RequestMapping("measure")
-    public List<UserMeasure> selectMeasure(){
-        List<UserMeasure> userMeasures = userService.selectMeasure();
+    public List<UserMeasure> selectMeasure(@RequestBody PageInfo pageInfo){
+        List<UserMeasure> userMeasures = userService.selectMeasure(pageInfo.getStart(),pageInfo.getPageSize());
         return userMeasures;
+    }
+
+    @RequestMapping("measurePageNum")
+    public Integer selectMeasureTotal(){
+        Integer num = userService.selectMeasureTotal();
+        System.out.println("measure 总数："+num);
+        return num;
     }
 }

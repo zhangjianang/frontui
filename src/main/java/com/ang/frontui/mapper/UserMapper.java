@@ -26,7 +26,9 @@ public interface UserMapper {
     int deleteById(Long id);
 
 
-    @Select("select id,measure_name as measureName,measure_def as measureDef from user_measure ")
-    List<UserMeasure> selectMeasure();
+    @Select("select id,measure_name as measureName,measure_def as measureDef from user_measure limit #{start},#{end} ")
+    List<UserMeasure> selectMeasure(int start,int end);
 
+    @Select("select count(*) from user_measure ")
+    int selectMeasureTotal();
 }
