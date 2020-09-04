@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ang.frontui.mapper.CommonFilterMapper">
+    <select id="findByTableId" resultType="com.ang.frontui.bean.CommonFilter" parameterType="long">
+        select * from ang_common_filter where id = #{id}
+    </select>
+
+    <select id="selectAllCommonFilter" resultType="com.ang.frontui.bean.CommonFilter">
+        select * from ang_common_filter
+    </select>
+
+    <insert id="setCommonFilter" parameterType="com.ang.frontui.bean.CommonFilter" >
+        insert into ang_common_filter (name,type,value,comment,table_name ,table_id,created_at,sql_info)
+        values(#{name},#{type}, #{value},#{comment},#{tableName},#{tableId},#{createdAt},#{sqlInfo});
+    </insert>
+</mapper>

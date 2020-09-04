@@ -3,13 +3,16 @@ package com.ang.frontui.bean;
 public class CommonFilter {
     private Long id;
     private String name;
+    private String value;
     private String type;
     private Boolean isPrimary;
     private Boolean isNullAble;
     private String comment;
 
     private String tableName;
+    private String sqlInfo;
     private Long tableId;
+
 
     private Long createdAt;
     private Long createdBy;
@@ -86,7 +89,11 @@ public class CommonFilter {
     }
 
     public void setCreatedAt(Long createdAt) {
-        this.createdAt = createdAt;
+        if(createdAt == null){
+            this.createdAt = System.currentTimeMillis();
+        }else {
+            this.createdAt = createdAt;
+        }
     }
 
     public Long getCreatedBy() {
@@ -111,5 +118,21 @@ public class CommonFilter {
 
     public void setUpdatedBy(Long updatedBy) {
         this.updatedBy = updatedBy;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getSqlInfo() {
+        return sqlInfo;
+    }
+
+    public void setSqlInfo(String sqlInfo) {
+        this.sqlInfo = sqlInfo;
     }
 }
