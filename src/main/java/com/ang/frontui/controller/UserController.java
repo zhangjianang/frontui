@@ -1,28 +1,42 @@
 package com.ang.frontui.controller;
 
+import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSONObject;
 import com.ang.frontui.bean.PageInfo;
+import com.ang.frontui.bean.UploadData;
 import com.ang.frontui.bean.UserInfo;
 import com.ang.frontui.bean.UserMeasure;
 import com.ang.frontui.common.AngRedisNotify;
+import com.ang.frontui.easy.UploadDataListener;
 import com.ang.frontui.mapper.UserMapper;
 import com.ang.frontui.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import static com.ang.frontui.controller.QueryController.genRes;
 
 @RestController
 @RequestMapping("user")
+
 public class UserController {
 
     private static final int EXP_SECOND = 60*60;
@@ -33,6 +47,29 @@ public class UserController {
     @Autowired
     RedisTemplate<String,  String> redisTemplate;
 
+
+
+    @RequestMapping("setCookie")
+    public void setCookieTest(HttpServletResponse response, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+
+        Cookie cookie = new Cookie("test","str");
+//        cookie.setDomain("10.200.78.47");
+        cookie.setPath("/");
+        response.addCookie(cookie);
+        HttpHeaders headers = new HttpHeaders();
+    }
+
+
+    @PostMapping("upload")
+    public Map upload(MultipartFile file) {
+        try {
+            EasyExcel.read(file.getInputStream(), UploadData.class, new UploadDataListener()).sheet().doRead();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return genRes("ok");
+    }
 
 
     @RequestMapping(value = "list")
@@ -84,7 +121,7 @@ public class UserController {
 
 
     @RequestMapping("add")
-    public String addUser(@Valid @RequestBody UserInfo userInfo){
+    public String addUser(@Validated @RequestBody UserInfo userInfo){
         userInfo.setDate(System.currentTimeMillis());
         userInfo.setState(1);
         Integer integer = userService.addUser(userInfo);

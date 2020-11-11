@@ -1,10 +1,15 @@
 package com.ang.frontui.bean;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class UserInfo {
     private Long id;
-    @NotNull
+
+    @NotEmpty(message = "名字不能为空")
     private String name;
     private String gender;
     @NotNull
