@@ -15,7 +15,7 @@ public class UploadDataListener extends AnalysisEventListener<UploadData> {
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadDataListener.class);
 
     private static final int BATCH_COUNT = 5;
-    List<UploadData> list = new ArrayList<UploadData>();
+    List<UploadData> list = new ArrayList<>();
 
     /**
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
