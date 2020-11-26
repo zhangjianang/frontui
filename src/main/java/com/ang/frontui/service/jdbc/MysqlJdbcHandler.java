@@ -16,7 +16,6 @@ public class MysqlJdbcHandler extends AbstractJdbcHandler{
 
     public MysqlJdbcHandler(DatasourceInfo datasourceInfo) {
         super(datasourceInfo);
-
     }
 
     @Override
