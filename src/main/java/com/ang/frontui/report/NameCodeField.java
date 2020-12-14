@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 @Data
 public class NameCodeField implements Register{
@@ -21,9 +22,10 @@ public class NameCodeField implements Register{
         String[] input = new String[]{"0","2","21"};
         List<String> ins = Arrays.asList(input);
         FindNameVisitor findNameVisitor = new FindNameVisitor(ins);
-        System.out.println("res:"+findNameVisitor.visit(nameCodeField));
+//        System.out.println("res:"+findNameVisitor.visit(nameCodeField));
 
 //        System.out.println("res:"+iterShow(nameCodeField, ins));
+        System.out.println("res:"+stackIterShow(nameCodeField, ins));
     }
 
     private static String iterShow(Register nameCodeField,List<String> keys){
@@ -43,6 +45,29 @@ public class NameCodeField implements Register{
         }
         return null;
     }
+
+
+    private static String stackIterShow(Register root,List<String> keys){
+
+        Stack<Register> stack = new Stack<>();
+        stack.push(root);
+        while(stack.peek()!=null){
+            Register nameCodeField= stack.pop();
+            System.out.println(nameCodeField.getName());
+            if(nameCodeField.getCode().equals(keys.get(nameCodeField.getLevel()))){
+                if(nameCodeField.getChild()!=null && nameCodeField.getChild().size()>0){
+                    for(Register per:nameCodeField.getChild()){
+                        stack.push(per);
+                    }
+//                    return nameCodeField.getDefault();
+                }else {
+                    return nameCodeField.getName();
+                }
+            }
+        }
+        return null;
+    }
+
 
     @Override
     public String accept(Visitor visitor) {
