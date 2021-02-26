@@ -1,8 +1,15 @@
 spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  application:
+    name:
+      ang-front-ui
   profiles:
     active: dev
   redis:
-    host: 127.0.0.1
+    host: www.zja.com
     port: 6379
 #    password: 123456
     jedis:
@@ -12,8 +19,8 @@ spring:
         min-idle: 5
   datasource:
     druid:
-      username: ang
-      password: *
+      username: ang01
+      password: ***
       jdbcUrl: jdbc:mysql://www.zja.com:3306/ang_bi
       driverClassName: com.mysql.jdbc.Driver
       initialSize: 5
@@ -31,7 +38,18 @@ spring:
       maxPoolPreparedStatementPerConnectionSize: 20
       useGlobalDataSourceStat: true
       connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-
+ribbon:
+  eager-load:
+    enabled: true
+#  http:
+#    client:
+#      enabled: true
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
